@@ -25,8 +25,14 @@ In the current legal system, the management of pre-hearing cases is plagued by i
 - **Real-Time Communication:** WebRTC technology for secure and seamless communication among legal professionals and clients.
 - **Integration:** Node.js for seamless integration and efficient back-end development.
 
-  **Presentation Link:**
+**Presentation Link:**
   https://drive.google.com/file/d/1At-QhzhB6qU-TnvgUjRe85EOlwu4oQ9g/view?usp=sharing
 
+**Team Members:**
+
+Siddhi Gupta : siddhi.04g@gmail.com
+Tanmay Gupta : adityagupta8503@gmail.com
+Vaishnavi Saxena : vaishnavisaxena246@gmail.com
+ 
 
   
