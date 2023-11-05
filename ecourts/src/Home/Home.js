@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Routes, Outlet } from 'react-router-dom';
 import EcourtsDashboard from './EcourtsDashboard/EcourtsDashboard';
 import EcourtsDocumentUpload from './EcourtsDocumentUpload/EcourtsDocumentUpload';
 import EcourtsDocumentStatus from './EcourtsDocumentStatus/EcourtsDocumentStatus.js';
@@ -9,30 +9,33 @@ import EcourtsFeedback from './EcourtsFeedback/EcourtsFeedback';
 import EcourtsFAQ from './EcourtsFAQ/EcourtsFAQ';
 // import BigCalendar from 'react-big-calendar';
 // import moment from 'moment';
+import { useState } from 'react';
+import LoginModal from './LoginModal';
 import "./Home.css";
-// const myEventsList = [
-//     {
-//       id: 0,
-//       title: 'All Day Event very long title',
-//       allDay: true,
-//       start: new Date(2015, 3, 0),
-//       end: new Date(2015, 3, 1),
-//     },
-//     {
-//       id: 1,
-//       title: 'Long Event',
-//       start: new Date(2015, 3, 7),
-//       end: new Date(2015, 3, 10),
-//     }
-// ];
-function Home() {
+import AdminLoginPage from '../LoginPages/AdminLoginPage';
+import RegistrarLoginPage from '../LoginPages/RegistrarLoginPage';
+import ChiefRegistrarLogin from '../LoginPages/ChiefRegistrarLoginPage';
+import ClientLoginPage from '../LoginPages/ClientLoginPage';
+
+const Home = () => {
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const handleLoginClick = () => {
+    setShowLoginModal(true);
+  };
+
+  const handleCloseLoginModal = () => {
+    setShowLoginModal(false);
+  };
+
   return (
     <Router>
       <div className="App">
         <header className="App-header">
-          <h1>Welcome to eCourts App</h1>
+          <h1>Welcome to Court Room</h1>
+          <button onClick={handleLoginClick}>Login</button>
         </header>
-
+        {showLoginModal && <LoginModal onClose={handleCloseLoginModal} />}
         <nav>
           <ul>
             <li>
@@ -58,18 +61,28 @@ function Home() {
             </li>
           </ul>
         </nav>
+        <Outlet />
         <Routes>
-        <Route path="/" exact component={EcourtsDashboard} />
-        <Route path="/upload" component={EcourtsDocumentUpload} />
-        <Route path="/status" component={EcourtsDocumentStatus} />
-        <Route path="/reminder" component={EcourtsCourtReminder} />
-        <Route path="/calendar" component={EcourtsCalendar} />
-        <Route path="/feedback" component={EcourtsFeedback} />
-        <Route path="/faq" component={EcourtsFAQ} />
+          <Route path="/admin" element={<AdminLoginPage />} />
+          <Route path="/registrar" element={<RegistrarLoginPage />} />
+          <Route path="/chief" element={<ChiefRegistrarLogin />} />
+          <Route path="/client" element={<ClientLoginPage />} />
+          <Route
+            path="/"
+            exact
+            element={<EcourtsDashboard />}
+            fallback={<p>Please log in to access the dashboard.</p>}
+          />
+          <Route path="/upload" element={<EcourtsDocumentUpload />} />
+          <Route path="/status" element={<EcourtsDocumentStatus />} />
+          <Route path="/reminder" element={<EcourtsCourtReminder />} />
+          <Route path="/calendar" element={<EcourtsCalendar />} />
+          <Route path="/feedback" element={<EcourtsFeedback />} />
+          <Route path="/faq" element={<EcourtsFAQ />} />
         </Routes>
       </div>
     </Router>
   );
-}
+};
 
 export default Home;
